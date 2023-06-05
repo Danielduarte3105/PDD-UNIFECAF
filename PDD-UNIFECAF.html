@@ -159,8 +159,8 @@ legend {
                         <label for="cpf" class="labelInput">CPF</label>
                     </div>
                     <p>Horário:</p>
-                    <input type="radio" id="07:00 às 12:00" name="horario" value="07:00 às 12:00" required>
-                    <label for="07:00 às 12:00">07:00 às 12:00</label>
+                    <input type="radio" id="07:00 às 10:00" name="horario" value="07:00 às 10:00" required>
+                    <label for="07:00 às 10:00">07:00 às 10:00</label>
                     <br>
                     <input type="radio" id="13:00 às 18:00" name="horario" value="13:00 às 18:00" required>
                     <label for="13:00 às 18:00">13:00 às 18:00</label>
@@ -177,12 +177,12 @@ legend {
                     <br><br>
                     
                     <div class="clock">
-                      <div id="time"></div>
-                      <div id="date"></div>
-                      <div id="dayOfWeek"></div>
-                      <input type="hidden" name="horarioAtual" id="hiddenTime" class="inputUser" required>
-                      <input type="hidden" name="dataAtual" id="hiddenDate" class="inputUser" required>
-                      <input type="hidden" name="diaSemanaAtual" id="hiddenDayOfWeek" class="inputUser" required>
+                        <div id="time"></div>
+                        <div id="date"></div>
+                        <div id="dayOfWeek"></div>
+                        <input type="hidden" name="Horario" id="time" class="inputUser">
+                        <input type="hidden" name="Data" id="date" class="inputUser">
+                        <input type="hidden" name="Dia da Semana" id="dayOfWeek" class="inputUser">
                     </div>
 
                     <br>
@@ -229,6 +229,12 @@ function updateTime() {
   // Atualiza o tempo a cada segundo
   setInterval(updateTime, 1000);
 
+  
+        function submitForm() {
+            var form = document.getElementById("myForm");
+            form.submit();
+        }      
+        
   function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
 
