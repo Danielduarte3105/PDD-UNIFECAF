@@ -175,11 +175,15 @@ legend {
                         <label for="obs" class="labelInput">Observação</label>
                     </div>
                     <br><br>
+                    
                     <div class="clock">
-                        <div id="time"></div>
-                        <div id="date"></div>
-                        <div id="dayOfWeek"></div>
-                        <input type="hidden" name="clock" id="time, date, dayOfWeek" class="inputUser" required>
+                      class="clock">
+                      <div id="time"></div>
+                      <div id="date"></div>
+                      <div id="dayOfWeek"></div>
+                      <input type="hidden" name="clockTime" id="clockTime" class="inputUser" required>
+                      <input type="hidden" name="clockDate" id="clockDate" class="inputUser" required>
+                      <input type="hidden" name="clockDayOfWeek" id="clockDayOfWeek" class="inputUser" required>
                     </div>
                     <br>
                     <input type="submit" name="submit" id="submit">
