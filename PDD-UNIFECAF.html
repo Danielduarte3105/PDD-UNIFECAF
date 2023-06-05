@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDD | UNIFECAF</title>
+    <style>
+
+        
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(3, 19, 27));
+}
+
+.clock {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+  }
+  
+  .time {
+    font-size: 12px;
+  }
+  
+  .date {
+    font-size: 10px;
+  }
+  
+
+.card {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 15px;
+    justify-content: center;
+    text-align: center;
+    margin: 45px auto;
+    width: 70%; /* Alterado para 70% para se adaptar melhor em diferentes dispositivos */
+    max-width: 300px; /* Adicionado para limitar a largura máxima da caixa */
+}
+
+fieldset {
+    border: 3px solid dodgerblue;
+}
+
+legend {
+    border: 1px solid dodgerblue;
+    padding: 10px;
+    text-align: center;
+    background-color: dodgerblue;
+    border-radius: 8px;
+}
+
+.inputBox {
+    position: relative;
+}
+
+.inputUser {
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    width: 100%;
+    letter-spacing: 2px;
+}
+
+.labelInput {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.inputUser:focus ~ .labelInput,
+.inputUser:valid ~ .labelInput {
+    top: -20px;
+    font-size: 12px;
+    color: dodgerblue;
+}
+
+#data {
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    outline: none;
+    font-size: 15px;
+}
+
+#submit {
+    background-image: linear-gradient(to right, rgb(0, 92, 197), rgb(90, 20, 220));
+    width: 100%;
+    border: none;
+    padding: 15px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 20px; /* Adicionado para criar um espaçamento entre os elementos */
+    display: flex;
+    justify-content: center; /* Adicionado para criar um espaçamento entre os elementos */
+}
+
+#submit:hover {
+    background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(30, 3, 80));
+}
+
+.download-button {
+    background-image: linear-gradient(to right, rgb(0, 92, 197), rgb(21, 3, 54));
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.download-button:hover {
+    background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80, 19, 195));
+}
+
+.imagem-centralizada {
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    width: 90px;
+    height: 90px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="form">
+            <form action="https://api.sheetmonkey.io/form/a7t1RJk9vYGtPRgwx3Wtmj" method="post">
+                <fieldset>
+                    <legend><b>PDD | UNIFECAF</b></legend>
+                    <div class="inputBox">
+                        <input type="text" name="nome" id="nome" class="inputUser" required>
+                        <label for="nome" class="labelInput">Nome completo</label>
+                    </div>
+                    <br><br>
+                    <div class="inputBox">
+                        <input type="number" name="cpf" id="cpf" class="inputUser" required>
+                        <label for="cpf" class="labelInput">CPF</label>
+                    </div>
+                    <p>Horário:</p>
+                    <input type="radio" id="manha" name="horario" value="manha" required>
+                    <label for="manha">07:00 às 12:00</label>
+                    <br>
+                    <input type="radio" id="tarde" name="horario" value="tarde" required>
+                    <label for="tarde">13:00 às 18:00</label>
+                    <br>
+                    <input type="radio" id="noite" name="horario" value="noite" required>
+                    <label for="noite">19:00 às 22:00</label>
+                    <br><br>
+        
+                    <br>
+                    <div class="inputBox">
+                        <input type="text" name="obs" id="obs" class="inputUser" required>
+                        <label for="obs" class="labelInput">Observação</label>
+                    </div>
+                    <br><br>
+                    <div class="clock">
+                        <div id="time"></div>
+                        <div id="date"></div>
+                        <div id="dayOfWeek"></div>
+                    </div>
+                    <br>
+                    <input type="submit" name="submit" id="submit">
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <script>
+
+
+function updateTime() {
+    var now = new Date();
+    var timeElement = document.getElementById("time");
+    var dateElement = document.getElementById("date");
+    var dayOfWeekElement = document.getElementById("dayOfWeek");
+  
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    var day = now.getDate();
+    var month = now.getMonth() + 1; // Adiciona +1 porque os meses são indexados de 0 a 11
+    var year = now.getFullYear();
+    var dayOfWeek = now.toLocaleDateString("pt-BR", { weekday: "long" });
+  
+    // Adiciona um zero na frente dos minutos e segundos se forem menores que 10
+    minutes = (minutes < 10 ? "0" : "") + minutes;
+    seconds = (seconds < 10 ? "0" : "") + seconds;
+  
+    // Atualiza os elementos HTML com o tempo, data e dia da semana atual
+    timeElement.textContent = hours + ":" + minutes + ":" + seconds;
+    dateElement.textContent = day + "/" + month + "/" + year;
+    dayOfWeekElement.textContent = dayOfWeek;
+  }
+  
+  // Atualiza o tempo inicialmente
+  updateTime();
+  
+  // Atualiza o tempo a cada segundo
+  setInterval(updateTime, 1000);
+
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+
+    if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
+        return false; // CPF inválido se não tiver 11 dígitos ou se todos os dígitos forem iguais
+    }
+
+    // Validação dos dígitos verificadores
+    var soma = 0;
+    for (var i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+
+    var resto = soma % 11;
+    var digitoVerificador1 = (resto < 2 ? 0 : 11 - resto);
+
+    if (parseInt(cpf.charAt(9)) !== digitoVerificador1) {
+        return false; // Primeiro dígito verificador inválido
+    }
+
+    soma = 0;
+    for (var j = 0; j < 10; j++) {
+        soma += parseInt(cpf.charAt(j)) * (11 - j);
+    }
+
+    resto = soma % 11;
+    var digitoVerificador2 = (resto < 2 ? 0 : 11 - resto);
+
+    if (parseInt(cpf.charAt(10)) !== digitoVerificador2) {
+        return false; // Segundo dígito verificador inválido
+    }
+
+    return true; // CPF válido
+}
+
+
+var cpfInput = document.getElementById('cpf'); // ID do campo de entrada do CPF
+
+cpfInput.addEventListener('input', function () {
+    var cpf = this.value;
+
+    if (validarCPF(cpf)) {
+        this.setCustomValidity(''); // CPF válido, remove a mensagem de validação
+    } else {
+        this.setCustomValidity('CPF inválido'); // CPF inválido, define a mensagem de validação
+    }
+});
+
+
+    </script>
+</body>
+</html>
