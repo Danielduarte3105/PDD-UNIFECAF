@@ -180,9 +180,9 @@ legend {
                       <div id="time"></div>
                       <div id="date"></div>
                       <div id="dayOfWeek"></div>
-                      <input type="hidden" name="horario" id="time" class="inputUser" required>
-                      <input type="hidden" name="data" id="date" class="inputUser" required>
-                      <input type="hidden" name="diaSemana" id="dayOfWeek" class="inputUser" required>
+                      <input type="hidden" name="horarioAtual" id="hiddenTime" class="inputUser" required>
+                      <input type="hidden" name="dataAtual" id="hiddenDate" class="inputUser" required>
+                      <input type="hidden" name="diaSemanaAtual" id="hiddenDayOfWeek" class="inputUser" required>
                     </div>
 
                     <br>
@@ -200,6 +200,10 @@ function updateTime() {
     var timeElement = document.getElementById("time");
     var dateElement = document.getElementById("date");
     var dayOfWeekElement = document.getElementById("dayOfWeek");
+    var hiddenTimeElement = document.getElementById("hiddenTime");
+    var hiddenDateElement = document.getElementById("hiddenDate");
+    var hiddenDayOfWeekElement = document.getElementById("hiddenDayOfWeek");
+          
   
     var hours = now.getHours();
     var minutes = now.getMinutes();
