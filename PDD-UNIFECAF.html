@@ -67,7 +67,7 @@ legend {
     border-bottom: 1px solid white;
     outline: none;
     color: white;
-    font-size: 18px;
+    font-size: 11px;
     width: 100%;
     letter-spacing: 2px;
 }
@@ -83,7 +83,7 @@ legend {
 .inputUser:focus ~ .labelInput,
 .inputUser:valid ~ .labelInput {
     top: -20px;
-    font-size: 13px;
+    font-size: 11px;
     color: dodgerblue;
 }
 
@@ -179,10 +179,9 @@ legend {
                     </div>
                     <br>
                     <div class="clock">
-                        <div id="time"><?php echo date('H:i');?></div>
-                        <div id="date"><?php echo date('d/m/Y');?></div>
-                        <div id="dayOfWeek"><?php echo date('l');?></div>
-                        <input type="hidden" name="Horario" value="<?php echo date('H:i');?> - <?php echo date('d/m/Y');?>">
+                        <div id="time"></div>
+                        <div id="date"></div>
+                        <div id="dayOfWeek"></div>
                     </div>
                     </div>
                
