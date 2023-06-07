@@ -66,7 +66,7 @@ legend {
     border-bottom: 1px solid white;
     outline: none;
     color: white;
-    font-size: 16px;
+    font-size: 18px;
     width: 100%;
     letter-spacing: 2px;
 }
@@ -91,7 +91,7 @@ legend {
     padding: 8px;
     border-radius: 10px;
     outline: none;
-    font-size: 16px;
+    font-size: 25px;
 }
 
 #submit {
@@ -175,6 +175,14 @@ legend {
                         <label for="obs" class="labelInput">Observação</label>
                     </div>
                     <br><br>
+                    <div class="clock">
+                        <div id="time"></div>
+                        <div id="date"></div>
+                        <div id="dayOfWeek"></div>
+                        <input type="hidden" name="Horario" id="time" class="inputUser">
+                        <input type="hidden" name="Data" id="date" class="inputUser">
+                        <input type="hidden" name="Dia da Semana" id="dayOfWeek" class="inputUser">
+                    </div>
                    
                     <br>
                     <input type="submit" name="submit" id="submit">
