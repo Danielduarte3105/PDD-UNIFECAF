@@ -183,11 +183,11 @@ legend {
                         <div id="date"></div>
                         <div id="dayOfWeek"></div>
                     </div>
-                    
-                        <input type="hidden" name="time" id="hiddenTime" required>
-                        <input type="hidden" name="date" id="hiddenDate" required>
-                        <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek" required>
-                       
+
+                    <!-- Adicione esses campos ocultos dentro do formulário -->
+                    <input type="hidden" name="time" id="hiddenTime">
+                    <input type="hidden" name="date" id="hiddenDate">
+                    <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek">
                
                     <input type="submit" name="submit" id="submit">
 
@@ -203,11 +203,12 @@ function updateTime() {
     var timeElement = document.getElementById("time");
     var dateElement = document.getElementById("date");
     var dayOfWeekElement = document.getElementById("dayOfWeek");
-    
+
     // Obtendo as referências dos campos ocultos
     var hiddenTimeElement = document.getElementById("hiddenTime");
     var hiddenDateElement = document.getElementById("hiddenDate");
     var hiddenDayOfWeekElement = document.getElementById("hiddenDayOfWeek");
+
 
     // Preenchendo os campos ocultos com os valores da div "Clock"
     hiddenTimeElement.value = timeElement.textContent;
