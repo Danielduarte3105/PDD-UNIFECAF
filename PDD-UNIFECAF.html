@@ -183,11 +183,11 @@ legend {
                         <div id="date"></div>
                         <div id="dayOfWeek"></div>
                     </div>
-
-                    <!-- Adicione esses campos ocultos dentro do formulário -->
-                    <input type="hidden" name="time" id="hiddenTime">
-                    <input type="hidden" name="date" id="hiddenDate">
-                    <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek">
+                    
+                        <input type="hidden" name="time" id="hiddenTime" required>
+                        <input type="hidden" name="date" id="hiddenDate" required>
+                        <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek" required>
+                       
                
                     <input type="submit" name="submit" id="submit">
 
@@ -203,27 +203,11 @@ function updateTime() {
     var timeElement = document.getElementById("time");
     var dateElement = document.getElementById("date");
     var dayOfWeekElement = document.getElementById("dayOfWeek");
-
+    
     // Obtendo as referências dos campos ocultos
     var hiddenTimeElement = document.getElementById("hiddenTime");
     var hiddenDateElement = document.getElementById("hiddenDate");
     var hiddenDayOfWeekElement = document.getElementById("hiddenDayOfWeek");
-    
-    // Obtendo as referências dos elementos da div "Clock"
-    var timeElement = document.getElementById("time");
-
-    // Obtendo a hora atual formatada
-    var currentTime = new Date().toLocaleTimeString();
-
-    // Preenchendo o campo oculto com a hora formatada
-    timeElement.textContent = currentTime;
-
-    // Obtendo a referência do campo oculto
-    var hiddenTimeElement = document.getElementById("hiddenTime");
-
-    // Atribuindo o valor formatado ao campo oculto
-    hiddenTimeElement.value = currentTime;
-
 
     // Preenchendo os campos ocultos com os valores da div "Clock"
     hiddenTimeElement.value = timeElement.textContent;
