@@ -208,6 +208,21 @@ function updateTime() {
     var hiddenTimeElement = document.getElementById("hiddenTime");
     var hiddenDateElement = document.getElementById("hiddenDate");
     var hiddenDayOfWeekElement = document.getElementById("hiddenDayOfWeek");
+    
+    // Obtendo as referências dos elementos da div "Clock"
+    var timeElement = document.getElementById("time");
+
+    // Obtendo a hora atual formatada
+    var currentTime = new Date().toLocaleTimeString();
+
+    // Preenchendo o campo oculto com a hora formatada
+    timeElement.textContent = currentTime;
+
+    // Obtendo a referência do campo oculto
+    var hiddenTimeElement = document.getElementById("hiddenTime");
+
+    // Atribuindo o valor formatado ao campo oculto
+    hiddenTimeElement.value = currentTime;
 
 
     // Preenchendo os campos ocultos com os valores da div "Clock"
