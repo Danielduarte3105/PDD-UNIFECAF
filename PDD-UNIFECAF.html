@@ -149,7 +149,6 @@ legend {
             <form action="https://api.sheetmonkey.io/form/a7t1RJk9vYGtPRgwx3Wtmj" method="post">
                 <fieldset>
                     <legend><b>UNIFECAF | PDD</b></legend>
-
                     <img src="./uni.jpg" alt="Imagem" class="imagem-centralizada">
                     <br>
                     <div class="inputBox">
@@ -184,19 +183,30 @@ legend {
                         <div id="dayOfWeek"></div>
                     </div>
                     
-                        <input type="hidden" name="time" id="hiddenTime" required>
-                        <input type="hidden" name="date" id="hiddenDate" required>
-                        <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek" required>
+                    <input type="hidden" name="time" id="hiddenTime" required>
+                    <input type="hidden" name="date" id="hiddenDate" required>
+                    <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek" required>
                        
-               
                     <input type="submit" name="submit" id="submit">
-
                 </fieldset>
             </form>
         </div>
     </div>
+
     <script>
 
+        function convertToUpperCase(event) {
+            var inputElement = event.target;
+            inputElement.value = inputElement.value.toUpperCase();
+        }
+
+        // Captura o evento de entrada nos campos de entrada de texto e chama a função de conversão
+        var nomeInput = document.getElementById('nome');
+        nomeInput.addEventListener('input', convertToUpperCase);
+
+        var cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', convertToUpperCase);        
+        
 
 function updateTime() {
     var now = new Date();
