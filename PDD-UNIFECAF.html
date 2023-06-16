@@ -292,15 +292,6 @@ function updateTime() {
 
 
 var cpfInput = document.getElementById('cpf'); // ID do campo de entrada do CPF
-        
-        document.getElementById("submit").addEventListener("click", function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
-
-    // Mostra a confirmação de envio
-    var confirmation = document.createElement("div");
-    confirmation.innerHTML = "<h1>Olá!</h1><h2>O Ponto Docente Digital UNIFECAF<br>Confirma o envio do seu formulário!!!</h2>";
-    document.body.appendChild(confirmation);
-});
 
 cpfInput.addEventListener('input', function () {
     var cpf = this.value;
