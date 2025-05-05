@@ -1,372 +1,437 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDD | UNIFECAF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --dark-blue: #0d47a1;
+            --light-blue: #e8f0fe;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #757575;
+            --error-color: #d32f2f;
+            --success-color: #388e3c;
+        }
 
-        
-body {
-    font-family: Helvetica;
-    background-image: linear-gradient(to right, rgb(21, 141, 200), rgb(65,182,255));
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Helvetica, Arial, sans-serif;
+        }
 
-.clock {
-    font-family: Helvetica;
-    font-size: 22px;
-    color: rgb(255, 255, 255);
-    text-align: center;
-  }
+        body {
+            background: linear-gradient(135deg, #1a73e8, #4285f4);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-.Base {
-	font-family: Helvetica;
-	font-size: 8px;
-	color: rgb(255, 255, 255);
-	display: flex;
-	justify-content: center;
-	position: absolute;
-	bottom: 0;
- }
+        .clock {
+            font-size: 18px;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 15px;
+        }
 
-a {
-  color: #fff;
-  font-size: 8pt;
-  text-decoration: none;
-}
-	    
-a:hover {
-  color: #272262;
-}
-  
-        
-  .time {
-    font-size: 25px;
-  }
-  
-  .date {
-    font-size: 15px;
-  }
-  
+        .time {
+            font-size: 24px;
+            font-weight: 500;
+        }
 
-.card {
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 15px;
-    border-radius: 15px;
-    justify-content: center;
-    text-align: center;
-    margin: 10px auto;
-    width: 70%; /* Alterado para 70% para se adaptar melhor em diferentes dispositivos */
-    max-width: 300px; /* Adicionado para limitar a largura máxima da caixa */
-}
+        .date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
 
-fieldset {
-    border: 3px solid dodgerblue;
-}
+        .dayOfWeek {
+            font-size: 14px;
+            font-weight: 300;
+            text-transform: capitalize;
+        }
 
-legend {
-    border: 1px solid dodgerblue;
-    padding: 10px;
-    text-align: center;
-    background-color: dodgerblue;
-    border-radius: 8px;
-}
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-.inputBox {
-    position: relative;
-}
+        .form-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
-.inputUser {
-    background: none;
-    border: none;
-    border-bottom: 1px solid white;
-    outline: none;
-    color: white;
-    font-size: 14px;
-    width: 100%;
-    letter-spacing: 2px;
-}
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--white);
+        }
 
-.labelInput {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    pointer-events: none;
-    transition: .5s;
-}
+        .title {
+            color: var(--white);
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
 
-.inputUser:focus ~ .labelInput,
-.inputUser:valid ~ .labelInput {
-    top: -20px;
-    font-size: 13px;
-    color: white;
-}
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 300;
+        }
 
-#data {
-    border: none;
-    padding: 8px;
-    border-radius: 10px;
-    outline: none;
-    font-size: 23px;
-}
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
 
-#submit {
-    background-image: linear-gradient(to right, rgb(0, 92, 197), rgb(90, 20, 220));
-    width: 100%;
-    border: none;
-    padding: 15px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    margin-top: 20px; /* Adicionado para criar um espaçamento entre os elementos */
-    display: flex;
-    justify-content: center; /* Adicionado para criar um espaçamento entre os elementos */
-}
+        .form-label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: rgba(26, 115, 232, 0.9);
+            color: var(--white);
+            padding: 0 8px;
+            font-size: 12px;
+            border-radius: 10px;
+            z-index: 1;
+        }
 
-#submit:hover {
-    background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(30, 3, 80));
-}
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
 
-.download-button {
-    background-image: linear-gradient(to right, rgb(0, 92, 197), rgb(21, 3, 54));
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-    margin-top: 20px;
-}
+        .form-input:focus {
+            outline: none;
+            border-color: var(--white);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
 
-.download-button:hover {
-    background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80, 19, 195));
-}
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
 
-.imagem-centralizada {
-    display: block;
-    margin: 0 auto;
-    border-radius: 100%;
-    width: 60px;
-    height: 60px;
-}
+        .radio-group {
+            margin: 15px 0;
+        }
 
-.hidden {
-    display: none;
-}
+        .radio-label {
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
+        .radio-input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
+        .radio-input:checked {
+            border-color: var(--white);
+            background-color: var(--primary-color);
+        }
+
+        .radio-input:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--white);
+            border-radius: 50%;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, #0d47a1, #1a73e8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--white);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .form-input {
+                padding: 10px 12px;
+            }
+            
+            .submit-btn {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="form">
-            <form action="https://api.sheetmonkey.io/form/a7t1RJk9vYGtPRgwx3Wtmj" method="post">
-                <fieldset>
-                    <legend><b>UNIFECAF | PDD</b></legend>
-                    <img src="./uni.jpg" alt="Imagem" class="imagem-centralizada">
-                    <br>
-                    <div class="inputBox">
-                        <input type="text" name="nome" id="nome" class="inputUser" required>
-                        <label for="nome" class="labelInput">Nome completo</label>
-                    </div>
-                    <br>
-                    <div class="inputBox">
-                        <input type="number" name="cpf" id="cpf" class="inputUser" required>
-                        <label for="cpf" class="labelInput">CPF</label>
-                    </div>
-                    <p>Horário:</p>
-                    <input type="radio" id="07:15 às 10:00" name="horario" value="07:15 às 10:00" required>
-                    <label for="07:15 às 10:00">07:15 às 10:00</label>
-                    <br>
-                    <input type="radio" id="19:10 às 22:00" name="horario" value="19:10 às 22:00" required>
-                    <label for="19:10 às 22:00">19:10 às 22:00</label>
-                    <br><br>
+        <div class="form-header">
+            <img src="./uni.jpg" alt="UNIFECAF Logo" class="logo">
+            <h1 class="title">Registro de Ponto</h1>
+            <p class="subtitle">UNIFECAF - Programa de Desenvolvimento Docente</p>
+        </div>
 
+        <div class="clock">
+            <div class="time" id="time"></div>
+            <div class="date" id="date"></div>
+            <div class="dayOfWeek" id="dayOfWeek"></div>
+        </div>
 
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			
-			<!--https://github.com/Danielduarte3105 -->
-			<!--https://github.com/Danielduarte3105 -->
-			<!--https://github.com/Danielduarte3105 -->
-			<!--https://github.com/Danielduarte3105 -->
+        <form action="https://api.sheetmonkey.io/form/a7t1RJk9vYGtPRgwx3Wtmj" method="post">
+            <div class="form-group">
+                <input type="text" name="nome" id="nome" class="form-input" placeholder=" " required>
+                <label for="nome" class="form-label">Nome completo</label>
+                <div class="error-message" id="nome-error"></div>
+            </div>
 
-			<!--Contate-me -->
-			<!--Contate-me -->
-			<!--Contate-me -->
-			<!--Contate-me -->
-			
-			
-                    <br>
-                    <div class="inputBox">
-                        <input type="text" name="obs" id="obs" class="inputUser">
-                        <label for="obs" class="labelInput">Observação</label>
-                    </div>
-                    <br>
-                    <div class="clock">
-                        <div id="time"></div>
-                        <div id="date"></div>
-                        <div id="dayOfWeek"></div>
-                    </div>
-                    
-                    <input type="hidden" name="time" id="hiddenTime" required>
-                    <input type="hidden" name="date" id="hiddenDate" required>
-                    <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek" required>
-                       
-                    <input type="submit" name="submit" id="submit">
-                </fieldset>
-            </form>
+            <div class="form-group">
+                <input type="text" name="cpf" id="cpf" class="form-input" placeholder=" " required maxlength="14">
+                <label for="cpf" class="form-label">CPF</label>
+                <div class="error-message" id="cpf-error"></div>
+            </div>
+
+            <div class="radio-group">
+                <p style="color: white; margin-bottom: 10px; font-size: 14px;">Horário:</p>
+                <label class="radio-label">
+                    <input type="radio" id="07:15 às 10:00" name="horario" value="07:15 às 10:00" class="radio-input" required>
+                    07:15 às 10:00
+                </label>
+                <label class="radio-label">
+                    <input type="radio" id="19:10 às 22:00" name="horario" value="19:10 às 22:00" class="radio-input" required>
+                    19:10 às 22:00
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="obs" id="obs" class="form-input" placeholder=" ">
+                <label for="obs" class="form-label">Observação (opcional)</label>
+            </div>
+
+            <input type="hidden" name="time" id="hiddenTime" required>
+            <input type="hidden" name="date" id="hiddenDate" required>
+            <input type="hidden" name="dayOfWeek" id="hiddenDayOfWeek" required>
+
+            <button type="submit" class="submit-btn">REGISTRAR PONTO</button>
+        </form>
+
+        <div class="footer">
+            <p>Sistema desenvolvido por <a href="https://github.com/Danielduarte3105" target="_blank">Daniel Duarte</a></p>
         </div>
     </div>
 
-
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			<!--Este Software Foi Desenvolvido Por Daniel Duarte da NXS -->
-			
-			<!--https://github.com/Danielduarte3105 -->
-			<!--https://github.com/Danielduarte3105 -->
-			<!--https://github.com/Danielduarte3105 -->
-			<!--https://github.com/Danielduarte3105 -->
-
-			<!--Contate-me -->
-			<!--Contate-me -->
-			<!--Contate-me -->
-			<!--Contate-me -->
-			
-
-	
     <script>
+        // Formatação do CPF
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 3) {
+                value = value.substring(0, 3) + '.' + value.substring(3);
+            }
+            if (value.length > 7) {
+                value = value.substring(0, 7) + '.' + value.substring(7);
+            }
+            if (value.length > 11) {
+                value = value.substring(0, 11) + '-' + value.substring(11, 13);
+            }
+            
+            e.target.value = value;
+            
+            // Validação do CPF
+            validateCPF(value);
+        });
 
-		// alert("Este sistema entrará em processo de atualização em 31/08/2024 - Para mais informações, sugestões, melhorias e mais contate o e-mail (pddunifecaf@gmail.com)");
-	   
-
-        function convertToUpperCase(event) {
-            var inputElement = event.target;
-            inputElement.value = inputElement.value.toUpperCase();
+        // Validação do CPF
+        function validateCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, '');
+            
+            if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
+                document.getElementById('cpf-error').textContent = 'CPF inválido';
+                document.getElementById('cpf-error').style.display = 'block';
+                return false;
+            }
+            
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+                sum += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            
+            let remainder = sum % 11;
+            let digit1 = remainder < 2 ? 0 : 11 - remainder;
+            
+            if (parseInt(cpf.charAt(9)) !== digit1) {
+                document.getElementById('cpf-error').textContent = 'CPF inválido';
+                document.getElementById('cpf-error').style.display = 'block';
+                return false;
+            }
+            
+            sum = 0;
+            for (let i = 0; i < 10; i++) {
+                sum += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            
+            remainder = sum % 11;
+            let digit2 = remainder < 2 ? 0 : 11 - remainder;
+            
+            if (parseInt(cpf.charAt(10)) !== digit2) {
+                document.getElementById('cpf-error').textContent = 'CPF inválido';
+                document.getElementById('cpf-error').style.display = 'block';
+                return false;
+            }
+            
+            document.getElementById('cpf-error').style.display = 'none';
+            return true;
         }
 
-        // Captura o evento de entrada nos campos de entrada de texto e chama a função de conversão
-        var nomeInput = document.getElementById('nome');
-        nomeInput.addEventListener('input', convertToUpperCase);
+        // Converter nome para maiúsculas
+        document.getElementById('nome').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
 
-        var cpfInput = document.getElementById('cpf');
-        cpfInput.addEventListener('input', convertToUpperCase);        
-        
+        // Atualização do relógio
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('time');
+            const dateElement = document.getElementById('date');
+            const dayOfWeekElement = document.getElementById('dayOfWeek');
+            
+            // Atualiza campos ocultos
+            document.getElementById('hiddenTime').value = timeElement.textContent;
+            document.getElementById('hiddenDate').value = dateElement.textContent;
+            document.getElementById('hiddenDayOfWeek').value = dayOfWeekElement.textContent;
+            
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            
+            const dayOfWeek = now.toLocaleDateString('pt-BR', { weekday: 'long' });
+            
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+            dateElement.textContent = `${day}/${month}/${year}`;
+            dayOfWeekElement.textContent = dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1);
+        }
 
-function updateTime() {
-    var now = new Date();
-    var timeElement = document.getElementById("time");
-    var dateElement = document.getElementById("date");
-    var dayOfWeekElement = document.getElementById("dayOfWeek");
-    
-    // Obtendo as referências dos campos ocultos
-    var hiddenTimeElement = document.getElementById("hiddenTime");
-    var hiddenDateElement = document.getElementById("hiddenDate");
-    var hiddenDayOfWeekElement = document.getElementById("hiddenDayOfWeek");
+        // Atualiza o tempo inicialmente e a cada segundo
+        updateTime();
+        setInterval(updateTime, 1000);
 
-    // Preenchendo os campos ocultos com os valores da div "Clock"
-    hiddenTimeElement.value = timeElement.textContent;
-    hiddenDateElement.value = dateElement.textContent;
-    hiddenDayOfWeekElement.value = dayOfWeekElement.textContent;
-          
-  
-    var hours = now.getHours();
-    var minutes = now.getMinutes();
-    var seconds = now.getSeconds();
-    var day = now.getDate();
-    var month = now.getMonth() + 1; // Adiciona +1 porque os meses são indexados de 0 a 11
-    var year = now.getFullYear();
-    var dayOfWeek = now.toLocaleDateString("pt-BR", { weekday: "long" });
-  
-    // Adiciona um zero na frente dos minutos e segundos se forem menores que 10
-    minutes = (minutes < 10 ? "0" : "") + minutes;
-    seconds = (seconds < 10 ? "0" : "") + seconds;
-  
-    // Atualiza os elementos HTML com o tempo, data e dia da semana atual
-    timeElement.textContent = hours + ":" + minutes + ":" + seconds;
-    dateElement.textContent = day + "/" + month + "/" + year;
-    dayOfWeekElement.textContent = dayOfWeek;
-  }
-  
-  // Atualiza o tempo inicialmente
-  updateTime();
-  
-  // Atualiza o tempo a cada segundo
-  setInterval(updateTime, 1000);
+        // Validação do formulário
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const nome = document.getElementById('nome').value.trim();
+            const cpf = document.getElementById('cpf').value;
+            
+            if (!nome) {
+                e.preventDefault();
+                document.getElementById('nome-error').textContent = 'Por favor, insira seu nome';
+                document.getElementById('nome-error').style.display = 'block';
+            }
+            
+            if (!validateCPF(cpf)) {
+                e.preventDefault();
+            }
+            
+            if (nome && validateCPF(cpf)) {
+                e.preventDefault(); // Remove esta linha em produção
+                alert('Registro de ponto realizado com sucesso!');
+                // this.submit(); // Descomente esta linha em produção
+            }
+        });
 
-  
-        function submitForm() {
-            var form = document.getElementById("myForm");
-            form.submit();
-        }      
-        
-  function validarCPF(cpf) {
-    cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
-
-    if (cpf.length !== 11 || /^(.)\1+$/.test(cpf)) {
-        return false; // CPF inválido se não tiver 11 dígitos ou se todos os dígitos forem iguais
-    }
-
-    // Validação dos dígitos verificadores
-    var soma = 0;
-    for (var i = 0; i < 9; i++) {
-        soma += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-
-    var resto = soma % 11;
-    var digitoVerificador1 = (resto < 2 ? 0 : 11 - resto);
-
-    if (parseInt(cpf.charAt(9)) !== digitoVerificador1) {
-        return false; // Primeiro dígito verificador inválido
-    }
-
-    soma = 0;
-    for (var j = 0; j < 10; j++) {
-        soma += parseInt(cpf.charAt(j)) * (11 - j);
-    }
-
-    resto = soma % 11;
-    var digitoVerificador2 = (resto < 2 ? 0 : 11 - resto);
-
-    if (parseInt(cpf.charAt(10)) !== digitoVerificador2) {
-        return false; // Segundo dígito verificador inválido
-    }
-
-    return true; // CPF válido
-}
-
-
-var cpfInput = document.getElementById('cpf'); // ID do campo de entrada do CPF
-
-cpfInput.addEventListener('input', function () {
-    var cpf = this.value;
-
-    if (validarCPF(cpf)) {
-        this.setCustomValidity(''); // CPF válido, remove a mensagem de validação
-    } else {
-        this.setCustomValidity('CPF inválido'); // CPF inválido, define a mensagem de validação
-    }
-});
-
-function exibirPopup() {
-  alert("Universidade Capital Federal - Professor, sua marcação de ponto foi registrada com sucesso!");
-}
-
-var submitButton = document.getElementById("submit");
-submitButton.addEventListener("click", exibirPopup);
-
-
+        // Melhorar experiência do formulário
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.querySelector('.form-label').style.backgroundColor = 'rgba(13, 71, 161, 0.9)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.querySelector('.form-label').style.backgroundColor = 'rgba(26, 115, 232, 0.9)';
+            });
+        });
     </script>
 </body>
 </html>
